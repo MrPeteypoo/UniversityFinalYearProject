@@ -36,6 +36,11 @@
 			"targetPath": "builds/windows"
 		},
 		{
+			"name": "osx",
+			"platforms": ["osx"],
+			"targetPath": "builds/osx"
+		},
+		{
 			"name": "linux",
 			"platforms": ["linux"],
 			"libs-linux": ["libdl"],
