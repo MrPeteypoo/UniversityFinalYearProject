@@ -1,0 +1,1 @@
+Game assets should be placed in this folder and will be copied to the builds folder upon compilation.

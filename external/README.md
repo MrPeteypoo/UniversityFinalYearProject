@@ -1,0 +1,1 @@
+Third party libraries and code should be placed inside this folder.

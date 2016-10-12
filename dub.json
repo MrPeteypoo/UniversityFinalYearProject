@@ -1,0 +1,68 @@
+{
+	"name": "hadouken",
+	"description": "A basic game showcasing the capabilities of Denjin.",
+	"license": "MIT",
+
+	"authors": ["Simon Peter Campbell"],
+	"copyright": "Copyright © 2016, storm",
+
+	"homepage": "https://github.com/storm20200/UniversityFinalYearProject",
+
+	"targetType": "executable",
+	"targetName": "hadouken",
+	"targetPath": "builds/unsupported",	
+
+	"dependencies": {
+		"denjin": {
+			"path": "denjin"
+		} 
+	},
+	
+	"copyFiles": ["content/"],
+
+	"importPaths": [
+		"source",
+		"external"
+	],
+
+	"sourcePaths": [
+		"source"
+	],
+
+	"configurations": [
+		{
+			"name": "windows",
+			"platforms": ["windows"],
+			"targetPath": "builds/windows"
+		},
+		{
+			"name": "linux",
+			"platforms": ["linux"],
+			"libs-linux": ["libdl"],
+			"targetPath": "builds/linux"
+		}
+	],
+
+	"buildRequirements": [
+		"allowWarnings",
+		"disallowDeprecations"
+	],
+
+	"buildTypes": {		
+		"optimized": {
+			"buildOptions": ["releaseMode", "optimize", "inline", "debugInfo"]
+		},
+
+		"optimized-unittest": {
+			"buildOptions": ["debugMode", "optimize", "inline", "debugInfo", "unittests"]
+		},
+
+		"release": {
+			"buildOptions": ["releaseMode", "optimize", "inline", "noBoundsCheck"]
+		},
+
+		"release-unittest": {
+			"buildOptions": ["debugMode", "optimize", "inline", "noBoundsCheck", "unittests"]
+		}
+	}
+}
