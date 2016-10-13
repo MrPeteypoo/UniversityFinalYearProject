@@ -1,3 +1,3 @@
-[submodule "denjin"]
-	path = denjin
+[submodule "external/denjin"]
+	path = external/denjin
 	url = https://github.com/storm20200/Denjin.git

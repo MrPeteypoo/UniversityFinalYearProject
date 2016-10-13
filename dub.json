@@ -14,7 +14,7 @@
 
 	"dependencies": {
 		"denjin": {
-			"path": "denjin"
+			"path": "external/denjin"
 		} 
 	},
 	
@@ -23,10 +23,6 @@
 	"importPaths": [
 		"source",
 		"external"
-	],
-
-	"sourcePaths": [
-		"source"
 	],
 
 	"configurations": [

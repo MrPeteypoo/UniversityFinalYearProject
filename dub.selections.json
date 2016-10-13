@@ -1,6 +1,7 @@
 {
 	"fileVersion": 1,
 	"versions": {
-		"denjin": {"path":"denjin"}
+		"denjin": {"path":"external/denjin"},
+		"glad": {"path":"external/denjin/external/glad"}
 	}
 }
