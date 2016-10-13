@@ -6,6 +6,11 @@ os:
 
 sudo: false
 
+addons:
+    apt:
+        packages:
+            - gcc-multilib
+
 d:
     - dmd
     - gdc
@@ -15,12 +20,16 @@ install:
     - dub fetch doveralls
     - dub build doveralls
 
-script:
+before_script:
     - git submodule update --init --recursive
+
+script:
     - dub test --arch=x86 --build=unittest-cov
     - dub test --arch=x86_64 --build=unittest
     - dub test --arch=x86 --build=optimized-unittest
     - dub test --arch=x86_64 --build=optimized-unittest
     - dub test --arch=x86 --build=release-unittest
     - dub test --arch=x86_64 --build=release-unittest
+
+after_script:
     - dub run doveralls
