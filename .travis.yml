@@ -16,7 +16,7 @@ install:
     - dub build doveralls
 
 script:
-    - git submodules --init --recursive
+    - git submodule update --init --recursive
     - dub test --arch=x86 --build=unittest-cov
     - dub test --arch=x86_64 --build=unittest
     - dub test --arch=x86 --build=optimized-unittest

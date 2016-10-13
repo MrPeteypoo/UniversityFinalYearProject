@@ -43,7 +43,6 @@
 		{
 			"name": "linux",
 			"platforms": ["linux"],
-			"libs-linux": ["libdl"],
 			"targetPath": "builds/linux"
 		}
 	],
