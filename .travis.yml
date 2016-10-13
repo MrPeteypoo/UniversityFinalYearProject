@@ -6,31 +6,24 @@ os:
 
 sudo: false
 
+d:
+  - dmd
+  - gdc 
+  - ldc2
+
 matrix:
-  include:
-    - os: linux
-      d: dmd
-    - os: linux
+  exclude:
+    - os: osx
       d: gdc
-    - os: linux
-      d: ldc2
-    - os: osx
-      d: dmd
-    - os: osx
-      d: ldc2
 
 addons:
   apt:
     packages:
-      - gcc-multilib
-      - g++-multilib
+      - g++-multilib  # Required for unittest-cov support.
 
 install:
   - dub fetch doveralls
   - dub build doveralls
-
-before_script:
-  - git submodule update --init --recursive
 
 # 64-bit only support on Linux using GDC until a more permanent solution to not having a 32-bit phobos can be found.
 script:
