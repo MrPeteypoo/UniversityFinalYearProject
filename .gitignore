@@ -5,3 +5,4 @@ __dummy.html
 *.obj
 builds/
 *.lst
+dub.selections.json
