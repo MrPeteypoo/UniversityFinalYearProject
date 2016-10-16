@@ -1,47 +1,100 @@
 language: d
 
+d: dmd
+
 # No Mac support until Metal is implemented.
 os:
   - linux
-#  - osx
 
-dist: trusty
-sudo: required
-
-d:
-  - dmd
-  - ldc2
-  - gdc
-
-matrix:
-  allow_failures:
-    - os: linux
-      d: gdc
+sudo: false
 
 addons:
   apt:
-    sources:
+    sources: &native_sources
       - kubuntu-backports # GLFW CMake version.
-    packages:
-      - cmake           # GLFW.
-      - libx11-dev      # GLFW.
-      - libxrandr-dev   # GLFW.
-      - libxinerama-dev # GLFW.
-      - libxcursor-dev  # GLFW.
-      - g++-multilib    # unittest-cov support.
+
+    packages: &native_deps
+      - gcc-multilib  # unittest-cov support.
+      - cmake         # GLFW.
+
+matrix:
+  include:
+
+    # 32-bit DMD
+    - env: ARCH=x86
+      d: dmd
+      addons:
+        apt:
+          sources: *native_sources
+          packages:
+            - *native_deps
+            - &32bit_deps ["libx11-dev:i386", "libxrandr-dev:i386", "libxinerama-dev:i386", "libxcursor-dev:i386",
+                           "libxfixes-dev:i386", "libxext-dev:i386", "libgl1-mesa-dev:i386", "libglu1-mesa-dev:i386"]
+
+    # 32-bit LDC2
+    - env: ARCH=x86
+      d: ldc2
+      addons:
+        apt:
+          sources: *native_sources
+          packages:
+            - *native_deps
+            - *32bit_deps
+
+    # 32-bit GDC
+    - env: ARCH=x86
+      d: gdc
+      addons:
+        apt:
+          sources: *native_sources
+          packages:
+            - *native_deps
+            - *32bit_deps
+
+    # 64-bit DMD
+    - env: ARCH=x86_64
+      d: dmd
+      addons:
+        apt:
+          sources: *native_sources
+          packages:
+            - *native_deps
+            - &64bit_deps [libx11-dev, libxrandr-dev, libxinerama-dev, libxcursor-dev]
+
+    # 64-bit LDC2
+    - env: ARCH=x86_64
+      d: ldc2
+      addons:
+        apt:
+          sources: *native_sources
+          packages:
+            - *native_deps
+            - *64bit_deps
+
+    # 64-bit GDC
+    - env: ARCH=x86_64
+      d: gdc
+      addons:
+        apt:
+          sources: *native_sources
+          packages:
+            - *native_deps
+            - *64bit_deps
+
+  allow_failures:
+    - d: gdc
+      
+  exclude:
+    - d: dmd
     
 install:
   - dub fetch doveralls
   - dub build doveralls
 
-# 64-bit only support on Linux using GDC until a more permanent solution to not having a 32-bit phobos can be found.
 script:
-  - if [ "$DC" != "gdc" ]; then dub test --arch=x86 --build=unittest; fi
-  - if [ "$DC" != "gdc" ]; then dub test --arch=x86 --build=optimized-unittest; fi
-  - if [ "$DC" != "gdc" ]; then dub test --arch=x86 --build=release-unittest; fi
-  - dub test --arch=x86_64 --build=unittest-cov
-  - dub test --arch=x86_64 --build=optimized-unittest
-  - dub test --arch=x86_64 --build=release-unittest
+  - dub test --arch=$ARCH --build=unittest-cov
+  - dub test --arch=$ARCH --build=optimized-unittest
+  - dub test --arch=$ARCH --build=release-unittest
 
 after_script:
   - dub run doveralls
