@@ -1,9 +1,8 @@
 import std.stdio;
 import denjin;
-import denjin.crap;
 
 void main()
 {
-	load();
-	writeln("Edit source/app.d to start your project.");
+	auto vec3 = Vector3.zero;
+	writeln("Vector3.zero: [%s, %s, %s].", vec3.x, vec3.y, vec3.z);
 }

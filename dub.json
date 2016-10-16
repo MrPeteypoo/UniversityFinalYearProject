@@ -17,8 +17,6 @@
 			"path": "external/denjin"
 		} 
 	},
-	
-	"copyFiles": ["content/"],
 
 	"importPaths": [
 		"source",
@@ -30,11 +28,6 @@
 			"name": "windows",
 			"platforms": ["windows"],
 			"targetPath": "builds/windows"
-		},
-		{
-			"name": "osx",
-			"platforms": ["osx"],
-			"targetPath": "builds/osx"
 		},
 		{
 			"name": "linux",
@@ -64,5 +57,11 @@
 		"release-unittest": {
 			"buildOptions": ["debugMode", "optimize", "inline", "noBoundsCheck", "unittests"]
 		}
-	}
+	},
+
+	"copyFiles": ["content/assets/*"],
+	"copyFiles-windows-x86": ["content/win-x86/*"],
+	"copyFiles-windows-x86_64": ["content/win-x86_64/*"],
+	"copyFiles-linux-x86": ["content/linux-x86/*"],
+	"copyFiles-linux-x86_64": ["content/linux-x86_64/*"]	
 }

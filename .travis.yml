@@ -5,7 +5,8 @@ os:
   - linux
 #  - osx
 
-sudo: false
+dist: trusty
+sudo: required
 
 d:
   - dmd
@@ -19,8 +20,15 @@ matrix:
 
 addons:
   apt:
+    sources:
+      - kubuntu-backports # GLFW CMake version.
     packages:
-      - g++-multilib  # Required for unittest-cov support.
+      - cmake           # GLFW.
+      - libx11-dev      # GLFW.
+      - libxrandr-dev   # GLFW.
+      - libxinerama-dev # GLFW.
+      - libxcursor-dev  # GLFW.
+      - g++-multilib    # unittest-cov support.
     
 install:
   - dub fetch doveralls
